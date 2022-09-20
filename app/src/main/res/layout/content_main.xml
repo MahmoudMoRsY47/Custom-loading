@@ -24,18 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:text="Glide"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:onClick="onRadioButtonClicked"/>
+            android:text="Glide - Image Loading Library"
+            android:textSize="20sp"
+            android:onClick="onRadioClicked"/>
 
         <RadioButton
             android:id="@+id/radio_load_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Load App"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:onClick="onRadioButtonClicked"/>
+            android:minHeight ="48dp"
+            android:text="LoadApp - Current repository"
+            android:textSize="20sp"
+            android:onClick="onRadioClicked"/>
 
         <RadioButton
             android:id="@+id/radio_retrofit"
@@ -43,8 +43,8 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="Retrofit"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"
+            android:onClick="onRadioClicked"/>
     </RadioGroup>
 
     <com.udacity.LoadingButton

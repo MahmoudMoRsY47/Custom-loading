@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
+
 class DetailActivity : AppCompatActivity() {
 
 
@@ -18,20 +19,17 @@ class DetailActivity : AppCompatActivity() {
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.cancelAll()
 
-        val fileName = intent.getStringExtra(Companion.DETAIL_ACTIVITY_INTENT_STATUS_KEY)
+        val fileName = intent.getStringExtra(Constants.KEY_OF_STATUS)
         fileNameValue.text = fileName
 
-        val status = intent.getStringExtra(DETAIL_ACTIVITY_INTENT_FILENAME_KEY)
+        val status = intent.getStringExtra(Constants.KEY_OF_FILENAME)
         statusValue.text = status
 
-        button.setOnClickListener {
+        ok.setOnClickListener {
             finish()
         }
 
     }
 
-    companion object {
-        const val DETAIL_ACTIVITY_INTENT_STATUS_KEY = "Status"
-        const val DETAIL_ACTIVITY_INTENT_FILENAME_KEY = "FileName"
-    }
+
 }

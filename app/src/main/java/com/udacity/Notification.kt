@@ -7,7 +7,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 
 
-private const val NOTIFICATION_ID = 0
+private const val NOTIFICATION_ID = 1
 
 fun NotificationManager.sendNotification(
     channel: String,
@@ -16,8 +16,8 @@ fun NotificationManager.sendNotification(
     name: String,
     status: String){
     val detailActivityIntent = Intent(applicationContext, DetailActivity::class.java)
-    detailActivityIntent.putExtra("STATUS", status)
-    detailActivityIntent.putExtra("NAME", name)
+    detailActivityIntent.putExtra(Constants.KEY_OF_STATUS, status)
+    detailActivityIntent.putExtra(Constants.KEY_OF_FILENAME, name)
 
     val buttonPendingIntent = PendingIntent.getActivity(
         applicationContext,

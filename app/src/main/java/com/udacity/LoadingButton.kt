@@ -36,9 +36,9 @@ class LoadingButton @JvmOverloads constructor(
 
         invalidate()
     }
-    private var buttonBackgroundColor = 0
-    private var buttonTextColor = 0
-    private var buttonLoadingColor = 0
+    private var backgroundColo = 0
+    private var textextColor = 0
+    private var loadingColor = 0
     private var buttonCircleColor = 0
 
     private var buttonTextStr = ""
@@ -54,15 +54,14 @@ class LoadingButton @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-            buttonBackgroundColor = getColor(R.styleable.LoadingButton_backgroundColor, 0)
-            buttonTextColor = getColor(R.styleable.LoadingButton_textColor, 0)
-            buttonLoadingColor = getColor(R.styleable.LoadingButton_buttonLoadingColor, 0)
+            backgroundColo = getColor(R.styleable.LoadingButton_backgroundColor, 0)
+            textextColor = getColor(R.styleable.LoadingButton_textColor, 0)
+            loadingColor = getColor(R.styleable.LoadingButton_buttonLoadingColor, 0)
             buttonCircleColor = getColor(R.styleable.LoadingButton_buttonCircleColor, 0)
 
     }
         buttonState = ButtonState.Completed
 
-        // setup animation
         valueAnimator.apply {
             addUpdateListener {
                 progress = it.animatedValue as Int
@@ -76,19 +75,15 @@ class LoadingButton @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        // button background
-        paint.color = buttonBackgroundColor
+        paint.color = backgroundColo
         canvas?.drawRect(0f,0f,widthSize.toFloat(), heightSize.toFloat(), paint)
 
-        // loading button
-        paint.color = buttonLoadingColor
+        paint.color = loadingColor
         canvas?.drawRect(0f, 0f, widthSize * progress/360f, heightSize.toFloat(), paint)
 
-        // text
-        paint.color = buttonTextColor
+        paint.color = textextColor
         canvas?.drawText(buttonTextStr, widthSize/2.0f, heightSize/2.0f + 30.0f, paint)
 
-        // circle
         paint.color = buttonCircleColor
         canvas?.drawArc(widthSize - 200f,50f,widthSize - 100f,150f,0f, progress.toFloat(), true, paint)
     }

@@ -3,7 +3,6 @@ package com.udacity
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -16,7 +15,6 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -25,12 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
 
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
 
-    private var selectedURL: String? = null
-    private var selectedFileName: String? = null
+    private lateinit var ChooseURL :String
+    private lateinit var nameOfFile: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +35,11 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
-            if(selectedURL != null) {
-                custom_button.buttonState = ButtonState.Loading
-                download()
+            custom_button.buttonState = ButtonState.Loading
+            download()
 
-            } else {
-                val toast = Toast.makeText(
-                    applicationContext,
-                    "Choose file",
-                    Toast.LENGTH_LONG)
-                toast.show()
-            }
         }
-        createChannel(CHANNEL_ID, "Channel Name")
+        addChannel(CHANNEL_ID, "Channel Name")
     }
 
     private val receiver = object : BroadcastReceiver() {
@@ -86,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.notification_description),
                     applicationContext,
                     downloadStatus,
-                    selectedFileName!!
+                    nameOfFile
                 )
             }
         }
@@ -106,33 +93,33 @@ class MainActivity : AppCompatActivity() {
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
     }
-    fun onRadioButtonClicked(view: View) {
+    fun onRadioClicked(view: View) {
         if (view is RadioButton && view.isChecked) {
 
             when (view.getId()) {
                 R.id.radio_glide ->
-                    selectedURL = URL
+                    ChooseURL = URL
                 R.id.radio_load_app ->
-                    selectedURL = LOAD_APP_URL
+                    ChooseURL = URL2
                 R.id.radio_retrofit ->
-                    selectedURL = RETROFIT_URL
+                    ChooseURL = URL3
             }
 
-            selectedFileName = view.text.toString()
+            nameOfFile = view.text.toString()
         }
     }
 
     companion object {
         private const val URL =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val LOAD_APP_URL =
+        private const val URL2 =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/masterXXX.zip"
-        private const val RETROFIT_URL =
+        private const val URL3 =
             "https://github.com/square/retrofit/archive/refs/heads/master.zip"
         private const val CHANNEL_ID = "channel"
     }
 
-    private fun createChannel(channelId: String, channelName: String) {
+    private fun addChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
                 channelId,
@@ -140,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                 NotificationManager.IMPORTANCE_HIGH)
 
             notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
+            notificationChannel.lightColor = Color.BLUE
             notificationChannel.enableVibration(true)
             notificationChannel.description = "Channel Description"
 
